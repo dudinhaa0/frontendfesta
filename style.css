@@ -1,0 +1,451 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #F5EBE0;
+    font-family: 'Lexend', sans-serif;
+    min-height: 100vh; /* Garante que o fundo cubra tudo */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Alinha o conteúdo no topo para o scroll funcionar melhor */
+    padding: 40px 20px;
+    
+    /* REMOVA o 'overflow: hidden' e adicione estes: */
+    overflow-y: auto; 
+    overflow-x: hidden; 
+}
+
+.menu-container {
+    width: 100%;
+    max-width: 800px;
+    text-align: center;
+    /* Adicione uma margem no final para o último show não ficar colado no fim da tela */
+    margin-bottom: 50px; 
+}
+
+.logo-principal {
+    width: 500px; /* Logo agora está bem grande */
+    max-width: 95vw; /* Garante que não quebre no celular */
+    height: auto;
+    margin-bottom: 30px;
+}
+
+.texto-central p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    font-weight: 300;
+    margin-bottom: 40px;
+    color: #5D5D5D;
+}
+
+.botao-avancar {
+    display: inline-block;
+    padding: 18px 70px;
+    background-color: #FFF8D6; 
+    color: #4A4A4A;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    border-radius: 35px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    transition: all 0.3s ease;
+}
+
+.botao-avancar:hover {
+    background-color: #FEF0B3;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+/* --- Estilos para a Tela de Login --- */
+
+.logo-login {
+    width: 250px; /* Logo um pouco menor para não empurrar o formulário para baixo */
+    height: auto;
+    margin-bottom: 20px;
+}
+
+.card-login {
+    background-color: rgba(255, 255, 255, 0.4); /* Fundo branco bem translúcido */
+    padding: 40px;
+    border-radius: 20px;
+    border: 1px solid #E8DFD5;
+}
+
+.card-login h2 {
+    color: #FFB74D;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.card-login p {
+    font-size: 0.9rem;
+    color: #888;
+    margin-bottom: 30px;
+}
+
+/* Campos de entrada */
+.campo {
+    margin-bottom: 15px;
+}
+
+.campo input {
+    width: 100%;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #DED4C9;
+    background-color: #FFF;
+    font-family: 'Lexend', sans-serif;
+    font-size: 1rem;
+    color: #555;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.campo input:focus {
+    border-color: #FFB74D; /* Realce em laranja suave ao clicar */
+}
+
+/* Botão de Login (seguindo o padrão do botão Avançar) */
+.botao-login {
+    width: 100%;
+    padding: 15px;
+    background-color: #FFF8D6;
+    color: #4A4A4A;
+    border: none;
+    border-radius: 30px;
+    font-family: 'Lexend', sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.botao-login:hover {
+    background-color: #FEF0B3;
+    transform: translateY(-2px);
+}
+
+/* Links pequenos embaixo */
+.links-extras {
+    margin-top: 20px;
+    font-size: 0.85rem;
+}
+
+.links-extras a {
+    color: #FBC02D;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.links-extras a:hover {
+    text-decoration: underline;
+}
+/* Detalhe opcional para destacar os títulos nas telas de formulário */
+.card-login h2 {
+    color: #FFB74D; /* Laranja pêssego suave */
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+/* Deixa o formulário um pouquinho mais largo se tiver muitos campos */
+.card-login {
+    min-width: 350px;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #F5EBE0;
+    font-family: 'Lexend', sans-serif;
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.menu-container {
+    width: 100%;
+    max-width: 1000px;
+    text-align: center;
+}
+
+.logo-topo {
+    width: 280px;
+    margin-bottom: 40px;
+}
+
+/* Grid Responsivo */
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+/* O Card Retangular */
+.card-retangulo {
+    position: relative;
+    height: 180px; /* Altura do retângulo */
+    border-radius: 15px;
+    overflow: hidden; /* Corta a imagem para não sair do retângulo */
+    display: block;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.card-retangulo:hover {
+    transform: scale(1.03);
+}
+
+/* A Imagem completa */
+.card-retangulo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Faz a imagem preencher o espaço sem distorcer */
+    display: block;
+}
+
+/* Faixa de texto sobre a imagem */
+.card-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(transparent, rgba(0,0,0,0.6)); /* Sombra para ler o texto */
+    text-align: left;
+}
+
+.card-overlay span {
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 1.2rem;
+    letter-spacing: 0.5px;
+}
+
+.menu-footer {
+    margin-top: 50px;
+}
+
+.btn-voltar {
+    text-decoration: none;
+    color: #8D6E63;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+/* --- Estilos da Página de Shows --- */
+
+.titulo-sessao {
+    color: #FFB74D;
+    margin: 20px 0 40px;
+    font-size: 2rem;
+}
+
+.link-voltar {
+    text-decoration: none;
+    color: #8D6E63;
+    font-weight: 500;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.lista-shows {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    max-width: 700px; /* Deixa a lista centralizada e elegante */
+    margin: 0 auto;
+}
+
+.card-show {
+    background-color: #FFFFFF;
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex; /* Alinha imagem na esquerda e texto na direita */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    text-align: left;
+    border: 1px solid #F5EBE0;
+}
+
+.banner-show {
+    position: relative;
+    width: 200px;
+    min-width: 200px;
+    height: 150px;
+}
+
+.banner-show img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Etiqueta de data sobre a imagem */
+.data-tag {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #FFB74D;
+    color: white;
+    padding: 5px 12px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.info-show {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.info-show h3 {
+    color: #4A4A4A;
+    margin-bottom: 5px;
+}
+
+.horario {
+    color: #FBC02D;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+}
+
+.descricao {
+    font-size: 0.9rem;
+    color: #777;
+    line-height: 1.4;
+}
+
+/* Responsividade: No celular, a imagem fica em cima do texto */
+@media (max-width: 600px) {
+    .card-show {
+        flex-direction: column;
+    }
+    .banner-show {
+        width: 100%;
+        height: 180px;
+    }
+}
+/* Efeito para quando passar o mouse no card do show */
+.card-show {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.card-show:hover {
+    transform: scale(1.02); /* Dá um leve zoom */
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1); /* Aumenta a sombra */
+    border-color: #FFB74D; /* A borda fica levemente laranja */
+}
+/* --- Estilos de Compra de Ingresso --- */
+
+.card-compra {
+    background-color: white;
+    padding: 30px;
+    border-radius: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    max-width: 500px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.item-ingresso {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    border: 2px solid #F5EBE0;
+    border-radius: 15px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+/* Esconde o rádio padrão e estiliza o container */
+.item-ingresso input[type="radio"] {
+    width: 20px;
+    height: 20px;
+    margin-right: 15px;
+    accent-color: #FFB74D;
+}
+
+.item-ingresso:hover {
+    border-color: #FFB74D;
+    background-color: #FFFAF0;
+}
+
+/* Estilo quando selecionado */
+.item-ingresso:has(input:checked) {
+    border-color: #FFB74D;
+    background-color: #FFF8D6;
+}
+
+.ingresso-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.ingresso-info .nome {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #4A4A4A;
+}
+
+.ingresso-info .detalhe {
+    font-size: 0.85rem;
+    color: #888;
+    margin: 4px 0;
+}
+
+.ingresso-info .preco {
+    font-weight: 700;
+    color: #F57C00;
+    font-size: 1.2rem;
+}
+
+/* Resumo e Botão */
+.resumo-pagamento {
+    margin-top: 30px;
+    text-align: center;
+    border-top: 1px dashed #DDD;
+    padding-top: 20px;
+}
+
+.resumo-pagamento h3 {
+    margin-bottom: 20px;
+    color: #4A4A4A;
+}
+
+.botao-finalizar {
+    width: 100%;
+    padding: 18px;
+    background-color: #FFB74D;
+    color: white;
+    border: none;
+    border-radius: 35px;
+    font-family: 'Lexend', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.botao-finalizar:hover {
+    transform: scale(1.02);
+    background-color: #F57C00;
+}
+
+.nota-seguranca {
+    font-size: 0.75rem;
+    color: #AAA;
+    margin-top: 15px;
+}
