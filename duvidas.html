@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dúvidas | Arraiá da Nossa Gente</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <style>
+        /* Estilos específicos para o Chat */
+        .chat-container {
+            max-width: 500px;
+            margin: 20px auto;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 70vh;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            background-color: #f9f9f9;
+        }
+
+        .msg {
+            max-width: 80%;
+            padding: 12px 16px;
+            border-radius: 15px;
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+
+        .msg.bot {
+            align-self: flex-start;
+            background: #e2e2e2;
+            color: #333;
+            border-bottom-left-radius: 2px;
+        }
+
+        .msg.user {
+            align-self: flex-end;
+            background: #F57C00;
+            color: white;
+            border-bottom-right-radius: 2px;
+        }
+
+        .chat-options {
+            padding: 15px;
+            background: white;
+            border-top: 1px solid #eee;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .btn-opcao {
+            background: none;
+            border: 2px solid #F57C00;
+            color: #F57C00;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-opcao:hover {
+            background: #F57C00;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <main class="menu-container">
+        <header class="menu-header">
+            <a href="menu.html" class="link-voltar">← Voltar</a>
+            <h1 class="titulo-sessao">Assistente Virtual</h1>
+        </header>
+
+        <div class="chat-container">
+            <div class="chat-messages" id="chat-box">
+                <div class="msg bot">Olá! Sou o assistente do Arraiá. Como posso te ajudar hoje? 🤠🔥</div>
+            </div>
+
+            
+                <div class="chat-options">
+    <button class="btn-opcao" onclick="perguntar('Qual o horário do evento?', 'O arraiá abre às 14h e as fogueiras se apagam às 23h! 🔥')">⏰ Horários</button>
+    
+    <button class="btn-opcao" onclick="perguntar('Onde estacionar?', 'Temos um estacionamento gratuito ao lado do Palco Principal, com segurança 24h! 🚗')">🅿️ Estacionamento</button>
+    
+    <button class="btn-opcao" onclick="perguntar('Quais as formas de pagamento?', 'Aceitamos Pix, cartões de crédito/débito e dinheiro em todas as barracas! 💳')">💰 Pagamento</button>
+    
+    <button class="btn-opcao" onclick="perguntar('Tem meia entrada?', 'Sim! Estudantes, idosos e professores pagam meia entrada apresentando o documento. 🎫')">🎓 Meia Entrada</button>
+    
+    <button class="btn-opcao" onclick="perguntar('O evento é seguro?', 'Com certeza! Temos policiamento local e uma equipe de segurança particular circulando. 👮')">🛡️ Segurança</button>
+    
+    <button class="btn-opcao" onclick="perguntar('Perdi um objeto, e agora?', 'Procure a Central de Informações na entrada do evento. Tudo o que achamos vai para lá! 🔍')">🕶️ Achados e Perdidos</button>
+    
+    <button class="btn-opcao" onclick="perguntar('Posso levar meu pet?', 'Claro! Somos Pet Friendly, mas pedimos que usem coleira por segurança. 🐶')">🐾 Levar Pet?</button>
+    
+    <button class="btn-opcao" onclick="perguntar('Os brinquedos são pagos?', 'Alguns são gratuitos e outros custam entre R$ 10 e R$ 20. Confira na aba Brinquedos! 🎡')">🎡 Brinquedos</button>
+</div>
+        
+        </div>
+    </main>
+
+    <script>
+        function perguntar(pergunta, resposta) {
+            const chatBox = document.getElementById('chat-box');
+
+            // Mensagem do Usuário
+            const userDiv = document.createElement('div');
+            userDiv.className = 'msg user';
+            userDiv.innerText = pergunta;
+            chatBox.appendChild(userDiv);
+
+            // Scroll para baixo
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            // Resposta do Bot (com um pequeno atraso para parecer real)
+            setTimeout(() => {
+                const botDiv = document.createElement('div');
+                botDiv.className = 'msg bot';
+                botDiv.innerText = resposta;
+                chatBox.appendChild(botDiv);
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }, 600);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comidas Típicas | Arraiá da Nossa Gente</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+
+    <main class="menu-container">
+        <header class="menu-header">
+            <a href="menu.html" class="link-voltar">← Voltar ao Menu</a>
+            <h1 class="titulo-sessao">Barracas de Delícias</h1>
+        </header>
+
+        <div id="lista-comidas" class="menu-grid">
+            <p>Carregando as delícias do arraiá...</p>
+        </div>
+
+        <footer class="menu-footer">
+            <p>© 2026 Arraiá da Nossa Gente</p>
+        </footer>
+    </main>
+
+   <script>
+    async function carregarComidas() {
+        const container = document.getElementById('lista-comidas');
+        
+        try {
+            // 1. Faz a chamada ao seu backend
+            const resposta = await fetch('http://localhost:3000/api/comidas');
+            
+            if (!resposta.ok) {
+                throw new Error("Erro ao ligar ao servidor");
+            }
+            
+            // 2. Transforma em JSON (APENAS UMA VEZ)
+            const dados = await resposta.json();
+
+            // 3. Limpa o texto de "Carregando..."
+            container.innerHTML = ''; 
+
+            // 4. Cria os cards usando 'comida.nome' e 'comida.img'
+            dados.forEach(comida => {
+                container.innerHTML += `
+                    <div class="card-retangulo">
+                        <img src="${comida.img || 'assets/images/comida.png'}" alt="${comida.nome}">
+                        <div class="card-overlay">
+                            <span>${comida.nome} - R$ ${Number(comida.preco).toFixed(2).replace('.', ',')}</span>
+                        </div>
+                    </div>
+                `;
+            });
+        } catch (erro) {
+            console.error("Erro ao carregar comidas:", erro);
+            container.innerHTML = "<p>Erro ao conectar com o servidor do Arraiá.</p>";
+        }
+    }
+
+    // Executa a função assim que a página abre
+    window.onload = carregarComidas;
+</script>
+</body>
+</html>

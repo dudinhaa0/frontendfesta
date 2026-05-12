@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parque de Diversões | Arraiá</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+
+    <main class="menu-container">
+        <header class="menu-header">
+            <a href="menu.html" class="link-voltar">← Voltar ao Menu</a>
+            <h1 class="titulo-sessao">Atrações do Parque (Todos 15 R$)</h1>
+        </header>
+
+        <div id="lista-brinquedos" class="menu-grid">
+            <p>A carregar o parque...</p>
+        </div>
+    </main>
+
+    <script>
+        async function carregarBrinquedos() {
+            const container = document.getElementById('lista-brinquedos');
+            
+            try {
+                // Chama o seu backend
+                const resposta = await fetch('http://localhost:3000/api/brinquedos');
+                
+                if (!resposta.ok) throw new Error("Erro ao ligar ao servidor");
+                
+                const dados = await resposta.json();
+                container.innerHTML = ''; // Limpa o carregando
+
+              dados.forEach(brinquedo => {
+    container.innerHTML += `
+        <div class="card-retangulo">
+            <img src="${brinquedo.img || '/assets/images/default.png'}" alt="${brinquedo.nome}">
+            <div class="card-overlay">
+                <span>${brinquedo.nome}</span>
+            </div>
+        </div>
+    `;
+});
+            } catch (erro) {
+                console.error("Erro:", erro);
+                container.innerHTML = "<p>Erro ao carregar os brinquedos. O servidor está ligado?</p>";
+            }
+        }
+
+        window.onload = carregarBrinquedos;
+    </script>
+</body>
+</html>
