@@ -43,6 +43,13 @@
                 </div>
             </a>
 
+            <a href="correio.html" class="card-retangulo">
+                <img src="assets/images/correio.png" alt="Tirar Dúvidas">
+                <div class="card-overlay">
+                    <span>Correio Elegante</span>
+                </div>
+            </a>
+
             <a href="duvidas.html" class="card-retangulo">
                 <img src="assets/images/duvidas.png" alt="Tirar Dúvidas">
                 <div class="card-overlay">
@@ -55,6 +62,44 @@
             <a href="login.html" class="btn-voltar">SAIR</a>
         </footer>
     </main>
+<div id="cursor-fogueira">🔥</div>
 
+<style>
+    /* 1. Esconde a seta do mouse em tudo */
+    html, body, a, button, input, textarea {
+        cursor: none !important;
+    }
+
+    /* 2. Estilo da fogueira */
+    #cursor-fogueira {
+        position: fixed;
+        top: 0;
+        left: 0;
+        font-size: 40px; /* Tamanho da fogueira */
+        pointer-events: none; /* Deixa clicar nos botões por trás */
+        z-index: 999999;
+        transform: translate(-50%, -50%); /* Centraliza no mouse */
+        user-select: none;
+        line-height: 1;
+    }
+</style>
+
+<script>
+    const fogueira = document.getElementById('cursor-fogueira');
+
+    // Segue o mouse em tempo real
+    document.addEventListener('mousemove', (e) => {
+        fogueira.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`;
+    });
+
+    // Se o mouse sair da tela, ela some para não ficar travada no canto
+    document.addEventListener('mouseleave', () => {
+        fogueira.style.display = 'none';
+    });
+    
+    document.addEventListener('mouseenter', () => {
+        fogueira.style.display = 'block';
+    });
+</script>
 </body>
 </html>

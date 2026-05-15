@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Correio Elegante | Arraiá</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600&family=Handlee&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        body { background-color: #fff5e6; font-family: 'Lexend', sans-serif; }
+        .container { max-width: 600px; margin: 40px auto; padding: 20px; }
+        
+        /* Formulário Bonitão */
+        .form-card {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            border: 2px solid #F57C00;
+            margin-bottom: 40px;
+        }
+        .form-card h2 { color: #E64A19; text-align: center; margin-top: 0; }
+        .input-group { margin-bottom: 15px; }
+        input, textarea {
+            width: 100%; padding: 12px; border: 1px solid #ddd;
+            border-radius: 10px; font-family: inherit; box-sizing: border-box;
+        }
+        textarea { height: 100px; resize: none; }
+        .btn-enviar {
+            width: 100%; background: #F57C00; color: white; border: none;
+            padding: 15px; border-radius: 10px; font-weight: bold; cursor: pointer;
+            font-size: 1.1rem; transition: 0.3s;
+        }
+        .btn-enviar:hover { background: #E64A19; transform: scale(1.02); }
+
+        /* Mural de Recados */
+        .mural { display: grid; gap: 20px; }
+        .post-it {
+            background: #fff176; padding: 20px; border-radius: 5px;
+            box-shadow: 5px 5px 10px rgba(0,0,0,0.1);
+            position: relative; font-family: 'Handlee', cursive;
+            font-size: 1.2rem; color: #333;
+            transform: rotate(-1deg);
+        }
+        .post-it:nth-child(even) { background: #ff8a65; transform: rotate(1.5deg); color: white; }
+        .post-it strong { display: block; margin-bottom: 10px; font-family: 'Lexend', sans-serif; font-size: 0.9rem; }
+        .status-msg { text-align: center; color: #666; font-size: 0.9rem; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="menu.html" style="text-decoration: none; color: #F57C00;">← Voltar ao Menu</a>
+        
+        <div class="form-card">
+            <h2>💌 Enviar Correio Elegante</h2>
+            <div class="input-group">
+                <input type="text" id="de" placeholder="Seu nome (deixe vazio para anônimo)">
+            </div>
+            <div class="input-group">
+                <input type="text" id="para" placeholder="Para quem?">
+            </div>
+            <div class="input-group">
+                <textarea id="mensagem" placeholder="Escreva seu recadinho apaixonado ou divertido..."></textarea>
+            </div>
+            <button class="btn-enviar" onclick="enviarCorreio()">Lançar Recado no Mural 🔥</button>
+            <p id="status" class="status-msg"></p>
+        </div>
+
+        <h2 style="text-align: center; color: #E64A19;">Mural de Recados</h2>
+        <div id="mural" class="mural">
+            </div>
+            <div style="background: #fff3e0; padding: 15px; border-radius: 10px; margin-bottom: 15px; border: 1px solid #ffcc80;">
+    <p style="margin-top: 0; font-size: 0.9rem; color: #e65100; font-weight: bold;">🤖 Assistente de Cantadas do Arraiá</p>
+    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <button type="button" onclick="gerarCantada('romantica')" style="background: #ff80ab; border: none; padding: 8px 12px; border-radius: 20px; color: white; cursor: pointer; font-size: 0.8rem;">💕 Romântica</button>
+        <button type="button" onclick="gerarCantada('engracada')" style="background: #81c784; border: none; padding: 8px 12px; border-radius: 20px; color: white; cursor: pointer; font-size: 0.8rem;">😂 Engraçada</button>
+        <button type="button" onclick="gerarCantada('comida')" style="background: #ffb74d; border: none; padding: 8px 12px; border-radius: 20px; color: white; cursor: pointer; font-size: 0.8rem;">🌽 Comida</button>
+    </div>
+</div>
+    </div>
+
+    <script>
+    const API_URL = "http://localhost:3000/api/correio";
+
+    // Função para buscar os dados e desenhar o mural
+    async function carregarMural() {
+        try {
+            const response = await fetch(API_URL);
+            const dados = await response.json();
+            
+            const mural = document.getElementById('mural');
+            mural.innerHTML = ""; // Limpa antes de carregar
+
+            dados.forEach(recado => {
+                mural.innerHTML += `
+                    <div class="post-it">
+                        <strong>Para: ${recado.destinatario}</strong>
+                        <p>"${recado.mensagem}"</p>
+                        <small>De: ${recado.remetente}</small>
+                    </div>
+                `;
+            });
+        } catch (err) {
+            console.error("Erro ao carregar mural:", err);
+        }
+    }
+
+    // Função para enviar o recado
+    async function enviarCorreio() {
+        const dados = {
+            remetente: document.getElementById('de').value,
+            destinatario: document.getElementById('para').value,
+            mensagem: document.getElementById('mensagem').value
+        };
+
+        if (!dados.destinatario || !dados.mensagem) {
+            alert("Preencha os campos, sô!");
+            return;
+        }
+
+        try {
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(dados)
+            });
+
+            if (response.ok) {
+                // Limpa o campo de mensagem e atualiza o mural
+                document.getElementById('mensagem').value = "";
+                alert("Recado enviado com sucesso! 💌");
+                carregarMural(); 
+            }
+        } catch (err) {
+            alert("Servidor desligado ou erro na conexão.");
+        }
+    }
+
+    // Inicia o mural assim que abre a página
+    carregarMural();
+    function gerarCantada(estilo) {
+    const cantadas = {
+        romantica: [
+            "Ocê não é fogueira, mas aqueceu meu coração nesse inverno!",
+            "Procurei no céu a estrela mais bonita, mas vi que ela tava aqui na minha frente dançando quadrilha.",
+            "O milho vira pipoca, a uva vira vinho, e eu só queria virar o dono do seu carinho.",
+            "Se ocê fosse uma prenda, eu pescava o dia inteiro pra te ganhar!"
+        ],
+        engracada: [
+            "Não sou o caminho da roça, mas tô doidinho pra ocê se perder em mim.",
+            "Pulei a fogueira e não me queimei, mas olhei pra você e me apaixonei!",
+            "Tanta gente pulando fogueira e eu querendo pular na sua vida.",
+            "O ministério da saúde adverte: me amar causa sorriso no rosto e vontade de casar na roça."
+        ],
+        comida: [
+            "Ocê é o milho da minha pamonha, o amendoim do meu paçocão!",
+            "Tô que nem quentão: quente por ocê e te deixando tonto de amor.",
+            "Gata, você não é canjica, mas é uma doçura que eu queria todo dia.",
+            "Me chama de pé de moleque e vem dar um passo em direção ao meu coração."
+        ]
+    };
+
+    // Seleciona uma cantada aleatória do estilo escolhido
+    const lista = cantadas[estilo];
+    const fraseAleatoria = lista[Math.floor(Math.random() * lista.length)];
+
+    // Preenche o campo de mensagem automaticamente
+    const campoMensagem = document.getElementById('mensagem');
+    
+    // Efeito de "digitação" da IA
+    campoMensagem.value = "";
+    let i = 0;
+    btnIA = event.target;
+    btnIA.innerText = "IA Pensando...";
+    
+    const digita = setInterval(() => {
+        if (i < fraseAleatoria.length) {
+            campoMensagem.value += fraseAleatoria.charAt(i);
+            i++;
+        } else {
+            clearInterval(digita);
+            btnIA.innerText = estilo.charAt(0).toUpperCase() + estilo.slice(1);
+        }
+    }, 300); // Velocidade da digitação
+}
+</script>
+
+    </script>
+    <div id="cursor-fogueira">🔥</div>
+
+<style>
+    /* 1. Esconde a seta do mouse em tudo */
+    html, body, a, button, input, textarea {
+        cursor: none !important;
+    }
+
+    /* 2. Estilo da fogueira */
+    #cursor-fogueira {
+        position: fixed;
+        top: 0;
+        left: 0;
+        font-size: 40px; /* Tamanho da fogueira */
+        pointer-events: none; /* Deixa clicar nos botões por trás */
+        z-index: 999999;
+        transform: translate(-50%, -50%); /* Centraliza no mouse */
+        user-select: none;
+        line-height: 1;
+    }
+</style>
+
+<script>
+    const fogueira = document.getElementById('cursor-fogueira');
+
+    // Segue o mouse em tempo real
+    document.addEventListener('mousemove', (e) => {
+        fogueira.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`;
+    });
+
+    // Se o mouse sair da tela, ela some para não ficar travada no canto
+    document.addEventListener('mouseleave', () => {
+        fogueira.style.display = 'none';
+    });
+    
+    document.addEventListener('mouseenter', () => {
+        fogueira.style.display = 'block';
+    });
+</script>
+</body>
+</html>
